@@ -1,0 +1,44 @@
+{
+  "name": "Kings",
+  "version": "1.0.0",
+  "description": "Kings Cupt",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --mode production",
+    "dev": "nodemon server/server.js & webpack-dev-server --mode development --open",
+    "start": "node server/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TomHerrmann/kings.git"
+  },
+  "author": "Tom Herrmann",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TomHerrmann/kings/issues"
+  },
+  "homepage": "https://github.com/TomHerrmann/king#readme",
+  "dependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/preset-react": "^7.9.4",
+    "babel-loader": "^8.1.0",
+    "body-parser": "^1.19.0",
+    "cli": "^1.0.1",
+    "css-loader": "^3.5.2",
+    "express": "^4.17.1",
+    "file-loader": "^6.0.0",
+    "html-loader": "^1.1.0",
+    "nodemon": "^2.0.3",
+    "pg": "^8.0.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "style-loader": "^1.1.4",
+    "webpack": "^4.42.1",
+    "webpack-dev-server": "^3.10.3"
+  },
+  "devDependencies": {
+    "webpack-cli": "^3.3.11"
+  }
+}
