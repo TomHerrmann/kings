@@ -4,12 +4,13 @@ import DrawCardButton from './components/DrawCardButton.jsx';
 import InPlay from './components/InPlay.jsx';
 import NewGameButton from './components/NewGameButton.jsx';
 
+import faceDownCard from '../assets/facedowncard.png';
 const deckAPI = 'https://deckofcardsapi.com/api/deck/';
 
 const App = () => {
   const [deckId, setDeckId] = useState(null);
   const [currentCard, setCurrentCard] = useState(null);
-  const [cardsRemaining, setCardsRemaining] = useState(null);
+  const [cardsRemaining, setCardsRemaining] = useState('52');
   const [pulledCards, setPulledCards] = useState([]);
 
   useEffect(() => {
@@ -57,7 +58,13 @@ const App = () => {
       </div>
       <NewGameButton startNewGame={startNewGame} />
       <DrawCardButton drawCard={drawCard} />
-      {currentCard ? <InPlay currentCard={currentCard} /> : null}
+      <div className="game-container">
+        {currentCard ? (
+          <InPlay currentCard={currentCard} />
+        ) : (
+          <img src={faceDownCard} alt="back-of-a-playing-card" width="225.996px" />
+        )}
+      </div>
       <div className="cards-remaining-container">
         <h5>cards remaining: {cardsRemaining}</h5>
       </div>
@@ -66,3 +73,6 @@ const App = () => {
 };
 
 export default App;
+
+// w ->
+// h -> 313.984
