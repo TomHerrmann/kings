@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 const App = () => {
-  return <h1>Project Template</h1>;
+  return (
+    <div className="app">
+      <div className="title-container">
+        <h1>Kings</h1>
+      </div>
+    </div>
+  );
 };
 
 export default App;

@@ -1,5 +1,11 @@
 body {
-  display: flex;
-  background-color: dimgrey;
+  background-color: gray;
   color: whitesmoke;
+  font-family: sans-serif;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

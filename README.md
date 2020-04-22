@@ -1,3 +1,3 @@
 # Kings
 
-Kings Cup
+###### Author: Tom Herrmann
