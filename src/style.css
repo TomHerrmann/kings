@@ -1,6 +1,15 @@
+:root {
+  --background-color: #3a4750;
+  --color: #d72323;
+  --color-secondary: #eeeeee;
+  --shadow: #303841;
+}
+
 body {
-  background-color: gray;
-  color: whitesmoke;
+  background-color: var(--background-color);
+  color: var(--color);
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: var(--color-secondary);
   font-family: sans-serif;
 }
 
