@@ -49,8 +49,6 @@ const App = () => {
     }
   };
 
-  // console.log(currentCard);
-
   return (
     <div className="app">
       <div className="title-container">
@@ -65,9 +63,7 @@ const App = () => {
           <img src={faceDownCard} alt="back-of-a-playing-card" width="225.996px" />
         )}
       </div>
-      <div className="cards-remaining-container">
-        <h5>cards remaining: {cardsRemaining}</h5>
-      </div>
+      <div className="cards-remaining-container">cards remaining: {cardsRemaining}</div>
     </div>
   );
 };

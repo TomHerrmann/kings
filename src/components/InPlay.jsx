@@ -14,10 +14,8 @@ const InPlay = ({ currentCard }) => {
         <img src={currentCard.image} alt={currentCard.code} />
       </div>
       <div className="card-and-rule-container">
-        <h2>
-          {value} of {suit}
-        </h2>
-        <h3>{rulesStore[value]}</h3>
+        {value} of {suit}
+        {rulesStore[value]}
       </div>
     </div>
   );
