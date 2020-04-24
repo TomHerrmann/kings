@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import DrawCardButton from './components/DrawCardButton.jsx';
 import InPlay from './components/InPlay.jsx';
+import LoadingIcon from './components/LoadingIcon.jsx';
 import NewGameButton from './components/NewGameButton.jsx';
 
 import faceDownCard from '../assets/facedowncard.png';
@@ -12,9 +13,14 @@ const App = () => {
   const [currentCard, setCurrentCard] = useState(null);
   const [cardsRemaining, setCardsRemaining] = useState('52');
   const [pulledCards, setPulledCards] = useState([]);
+  const [gifStore, setGifStore] = useState({});
+  const [displayGif, setDisplayGif] = useState({});
+  // change default isloading to true
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetchDeck();
+    setIsLoading(false);
   }, []);
 
   const fetchDeck = async () => {
@@ -27,6 +33,8 @@ const App = () => {
       console.log(`Fetch failed with ${err}`);
     }
   };
+
+  const fetchGifs = async () => {};
 
   const startNewGame = () => {
     fetchDeck();
@@ -51,19 +59,22 @@ const App = () => {
 
   return (
     <div className="app">
-      <div className="title-container">
-        <h1>Kings</h1>
+      {isLoading ? <LoadingIcon /> : null}
+      <div className="overlay">
+        <div className="title-container">
+          <h1>Kings</h1>
+        </div>
+        <NewGameButton startNewGame={startNewGame} />
+        <DrawCardButton drawCard={drawCard} />
+        <div className="game-container">
+          {currentCard ? (
+            <InPlay currentCard={currentCard} />
+          ) : (
+            <img src={faceDownCard} alt="back-of-a-playing-card" width="225.996px" />
+          )}
+        </div>
+        <div className="cards-remaining-container">cards remaining: {cardsRemaining}</div>
       </div>
-      <NewGameButton startNewGame={startNewGame} />
-      <DrawCardButton drawCard={drawCard} />
-      <div className="game-container">
-        {currentCard ? (
-          <InPlay currentCard={currentCard} />
-        ) : (
-          <img src={faceDownCard} alt="back-of-a-playing-card" width="225.996px" />
-        )}
-      </div>
-      <div className="cards-remaining-container">cards remaining: {cardsRemaining}</div>
     </div>
   );
 };
