@@ -7,6 +7,8 @@ import NewGameButton from './components/NewGameButton.jsx';
 
 import faceDownCard from '../assets/facedowncard.png';
 const deckAPI = 'https://deckofcardsapi.com/api/deck/';
+const giphyAPI = 'https://api.giphy.com/v1/gifs/search';
+const giphyKey = 'zgiDSRigeFuCU4oGWmbaqMA3sXe6pP6V';
 
 const App = () => {
   const [deckId, setDeckId] = useState(null);
@@ -19,6 +21,7 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    fetchGifs('welcome');
     fetchDeck();
     setIsLoading(false);
   }, []);
@@ -34,7 +37,17 @@ const App = () => {
     }
   };
 
-  const fetchGifs = async () => {};
+  const fetchGifs = async query => {
+    const gifPromise = await fetch(`${giphyAPI}?api_key=${giphyKey}&q=${query}&limit=4`);
+    const { data } = await gifPromise.json();
+    // data is an array of 4 gif objects
+
+    if (query === 'hi') {
+      setDisplayGif(data[0].embed_url);
+    } else {
+      const newGifStore = {};
+    }
+  };
 
   const startNewGame = () => {
     fetchDeck();
@@ -44,7 +57,6 @@ const App = () => {
   };
 
   const drawCard = async () => {
-    console.log('being called');
     try {
       const drawCardPromise = await fetch(`${deckAPI}/${deckId}/draw`);
       const { cards, remaining } = await drawCardPromise.json();
@@ -68,10 +80,11 @@ const App = () => {
         <DrawCardButton drawCard={drawCard} />
         <div className="game-container">
           {currentCard ? (
-            <InPlay currentCard={currentCard} />
+            <InPlay currentCard={currentCard} displayGif={displayGif} />
           ) : (
             <img src={faceDownCard} alt="back-of-a-playing-card" width="225.996px" />
           )}
+          <img src={displayGif} alt="a random gif" />
         </div>
         <div className="cards-remaining-container">cards remaining: {cardsRemaining}</div>
       </div>
