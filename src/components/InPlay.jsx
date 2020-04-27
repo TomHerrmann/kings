@@ -5,18 +5,25 @@ import DrawCardButton from './DrawCardButton.jsx';
 
 import { rulesStore } from '../utils/enums';
 
-const InPlay = ({ currentCard, displayGif }) => {
+const InPlay = ({ cardsRemaining, currentCard, displayGif }) => {
   const { suit, value } = currentCard;
 
+  const cardInPlay = cardsRemaining === 52 ? faceDownCard : currentCard.image;
+  console.log('displayGif', displayGif);
   return (
     <div className="in-play-container">
-      <div className="card-container">
-        <img src={currentCard.image} alt={currentCard.code} />
-        {value} of {suit}
+      <div className="in-play-left">
+        <div>
+          <img src={currentCard.image} alt={currentCard.code} />
+        </div>
+        <div>cards remaining: {cardsRemaining}</div>
       </div>
-      <div className="rule-container">
-        <img src={displayGif} alt="a random gif" />
-        {rulesStore[value]}
+      <div className="in-play-right"></div>
+
+      <div className="prompt-container">{rulesStore[value]}</div>
+      <div className="gif-container">
+        <iframe src={displayGif}></iframe>
+        <p>"Powered By GIPHY"</p>
       </div>
     </div>
   );

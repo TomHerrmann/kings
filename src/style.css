@@ -20,6 +20,10 @@ body {
   align-items: center;
 }
 
+iframe {
+  all: unset;
+}
+
 .app h1 {
   all: unset;
   font-size: 100px;
