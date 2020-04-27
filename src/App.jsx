@@ -4,8 +4,10 @@ import DrawCardButton from './components/DrawCardButton.jsx';
 import InPlay from './components/InPlay.jsx';
 import LoadingIcon from './components/LoadingIcon.jsx';
 import NewGameButton from './components/NewGameButton.jsx';
+import Welcome from './components/Welcome.jsx';
 
-import faceDownCard from '../assets/facedowncard.png';
+import randomNumber from './utils/randomNumber';
+
 const deckAPI = 'https://deckofcardsapi.com/api/deck/';
 const giphyAPI = 'https://api.giphy.com/v1/gifs/search';
 const giphyKey = 'zgiDSRigeFuCU4oGWmbaqMA3sXe6pP6V';
@@ -21,9 +23,11 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetchGifs('welcome');
+    fetchGifs('party');
     fetchDeck();
-    setIsLoading(false);
+    setTimeout(() => {
+      setIsLoading(false), 0;
+    });
   }, []);
 
   const fetchDeck = async () => {
@@ -42,8 +46,10 @@ const App = () => {
     const { data } = await gifPromise.json();
     // data is an array of 4 gif objects
 
-    if (query === 'hi') {
-      setDisplayGif(data[0].embed_url);
+    if (query === 'party') {
+      const { embed_url } = data[0];
+
+      setDisplayGif(embed_url);
     } else {
       const newGifStore = {};
     }
@@ -68,26 +74,32 @@ const App = () => {
       console.log(`Fetch failed with ${err}`);
     }
   };
+  console.log('displayGif', displayGif);
 
   return (
     <div className="app">
-      {isLoading ? <LoadingIcon /> : null}
-      <div className="overlay">
-        <div className="title-container">
-          <h1>Kings</h1>
-        </div>
-        <NewGameButton startNewGame={startNewGame} />
-        <DrawCardButton drawCard={drawCard} />
-        <div className="game-container">
-          {currentCard ? (
-            <InPlay currentCard={currentCard} displayGif={displayGif} />
-          ) : (
-            <img src={faceDownCard} alt="back-of-a-playing-card" width="225.996px" />
-          )}
-          <img src={displayGif} alt="a random gif" />
-        </div>
-        <div className="cards-remaining-container">cards remaining: {cardsRemaining}</div>
+      <div className="title-container">
+        <h1>Kings</h1>
       </div>
+      {isLoading ? (
+        <LoadingIcon />
+      ) : (
+        <div className="overlay">
+          <NewGameButton startNewGame={startNewGame} />
+          <DrawCardButton drawCard={drawCard} />
+          <div className="game-container">
+            {currentCard ? (
+              <InPlay
+                cardsRemaining={cardsRemaining}
+                currentCard={currentCard}
+                displayGif={displayGif}
+              />
+            ) : (
+              <Welcome cardsRemaining={cardsRemaining} displayGif={displayGif} />
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
