@@ -5,6 +5,7 @@ import Game from './components/Game.jsx';
 import LoadingIcon from './components/LoadingIcon.jsx';
 import NewGameButton from './components/NewGameButton.jsx';
 
+import { gifQueryStore } from './utils/enums';
 import randomNumber from './utils/randomNumber';
 
 const deckAPI = 'https://deckofcardsapi.com/api/deck/';
@@ -48,17 +49,35 @@ const App = () => {
   };
 
   const fetchGifs = async query => {
-    const gifPromise = await fetch(`${giphyAPI}?api_key=${giphyKey}&q=${query}&limit=4`);
-    const { data } = await gifPromise.json();
-    // data is an array of 4 gif objects
+    const embed_urls = [];
 
-    if (query === 'welcome') {
-      const { embed_url } = data[0];
+    if (!gifStore[query]) {
+      const gifPromise = await fetch(`${giphyAPI}?api_key=${giphyKey}&q=${query}&limit=4`);
+      const { data } = await gifPromise.json();
+      // data is an array of 4 gif objects
 
-      setDisplayGif(embed_url);
+      if (query === 'welcome') {
+        const { embed_url } = data[0];
+
+        setDisplayGif(embed_url);
+
+        return;
+      } else {
+        embed_urls.push(...data.map(gif => gif.embed_url));
+        console.log('embed -> ', embed_urls);
+      }
     } else {
-      const newGifStore = {};
+      embed_urls.push(...gifStore[query].slice());
     }
+
+    // pop gif embed_url off array and set it as display gif
+    const popped = embed_urls.pop();
+    setDisplayGif(popped);
+
+    // create a temp obj, set query as string and remaining embed_urls as value to update state
+    const tempObj = {};
+    tempObj[query] = embed_urls;
+    setGifStore(Object.assign(gifStore, tempObj));
   };
 
   const startNewGame = () => {
@@ -73,6 +92,7 @@ const App = () => {
       const drawCardPromise = await fetch(`${deckAPI}/${deckId}/draw`);
       const { cards, remaining } = await drawCardPromise.json();
 
+      fetchGifs(gifQueryStore[cards[0].value]);
       setCardsRemaining(remaining);
       setCurrentCard(cards[0]);
       setPulledCards(pulledCards.concat(cards[0]));
@@ -80,7 +100,6 @@ const App = () => {
       console.log(`Fetch failed with ${err}`);
     }
   };
-  console.log('displayGif', displayGif);
 
   return (
     <div className="app">
@@ -90,13 +109,14 @@ const App = () => {
       {isLoading ? (
         <LoadingIcon />
       ) : (
-        <div className="overlay">
+        // <div className="overlay">
+        <main>
           <div className="buttons-container">
             <DrawCardButton drawCard={drawCard} />
             <NewGameButton startNewGame={startNewGame} />
           </div>
           <Game cardsRemaining={cardsRemaining} currentCard={currentCard} displayGif={displayGif} />
-        </div>
+        </main>
       )}
     </div>
   );

@@ -14,3 +14,19 @@ export const rulesStore = {
   ACE: 'social',
   facedown: 'click "draw card" to play'
 };
+
+export const gifQueryStore = {
+  '2': 'you',
+  '3': 'me',
+  '4': 'floor',
+  '5': 'bros',
+  '6': 'ladies',
+  '7': 'heaven',
+  '8': 'romance',
+  '9': 'rap',
+  '10': 'alex trebek',
+  JACK: 'never have i ever',
+  QUEEN: 'question',
+  KING: 'rules',
+  ACE: 'cheers'
+};
