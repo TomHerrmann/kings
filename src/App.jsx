@@ -22,12 +22,11 @@ const faceDownCard = {
 const App = () => {
   const [deckId, setDeckId] = useState(null);
   const [currentCard, setCurrentCard] = useState(null);
-  const [cardsRemaining, setCardsRemaining] = useState('52');
+  const [cardsRemaining, setCardsRemaining] = useState(52);
   const [pulledCards, setPulledCards] = useState([]);
   const [gifStore, setGifStore] = useState({});
-  const [displayGif, setDisplayGif] = useState({});
-  // change default isloading to true
-  const [isLoading, setIsLoading] = useState(true);
+  const [displayGif, setDisplayGif] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     fetchGifs('welcome');
@@ -56,16 +55,7 @@ const App = () => {
       const { data } = await gifPromise.json();
       // data is an array of 4 gif objects
 
-      if (query === 'welcome') {
-        const { embed_url } = data[0];
-
-        setDisplayGif(embed_url);
-
-        return;
-      } else {
-        embed_urls.push(...data.map(gif => gif.embed_url));
-        console.log('embed -> ', embed_urls);
-      }
+      embed_urls.push(...data.map(gif => gif.embed_url));
     } else {
       embed_urls.push(...gifStore[query].slice());
     }
@@ -81,10 +71,14 @@ const App = () => {
   };
 
   const startNewGame = () => {
-    fetchDeck();
-    setCurrentCard(null);
-    setCardsRemaining(null);
-    setPulledCards([]);
+    if (cardsRemaining !== 52) {
+      fetchDeck();
+      fetchGifs('welcome');
+      setCurrentCard(null);
+      setCardsRemaining(52);
+      setGifStore({});
+      setPulledCards([]);
+    }
   };
 
   const drawCard = async () => {
