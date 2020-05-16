@@ -11,5 +11,6 @@ export const rulesStore = {
   JACK: 'never have i ever',
   QUEEN: 'question master',
   KING: 'make a rule',
-  ACE: 'social'
+  ACE: 'social',
+  facedown: 'click "draw card" to play'
 };

@@ -67,8 +67,17 @@ iframe {
   }
 }
 
+.buttons-container {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 25px;
+  margin-right: 25px;
+  margin-bottom: 50px;
+}
+
 .game-container {
   display: flex;
+  justify-content: space-between;
 }
 
 .cards-remaining-container {

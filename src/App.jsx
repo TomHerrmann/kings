@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from 'react';
 
 import DrawCardButton from './components/DrawCardButton.jsx';
-import InPlay from './components/InPlay.jsx';
+import Game from './components/Game.jsx';
 import LoadingIcon from './components/LoadingIcon.jsx';
 import NewGameButton from './components/NewGameButton.jsx';
-import Welcome from './components/Welcome.jsx';
 
 import randomNumber from './utils/randomNumber';
 
 const deckAPI = 'https://deckofcardsapi.com/api/deck/';
 const giphyAPI = 'https://api.giphy.com/v1/gifs/search';
 const giphyKey = 'zgiDSRigeFuCU4oGWmbaqMA3sXe6pP6V';
+
+const faceDownCard = {
+  // code is used only for alt tag
+  code: 'facedown playing card',
+  image: '../../assets/facedowncard.png',
+  value: 'facedown'
+};
 
 const App = () => {
   const [deckId, setDeckId] = useState(null);
@@ -23,7 +29,7 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetchGifs('party');
+    fetchGifs('welcome');
     fetchDeck();
     setTimeout(() => {
       setIsLoading(false), 0;
@@ -46,7 +52,7 @@ const App = () => {
     const { data } = await gifPromise.json();
     // data is an array of 4 gif objects
 
-    if (query === 'party') {
+    if (query === 'welcome') {
       const { embed_url } = data[0];
 
       setDisplayGif(embed_url);
@@ -85,19 +91,11 @@ const App = () => {
         <LoadingIcon />
       ) : (
         <div className="overlay">
-          <NewGameButton startNewGame={startNewGame} />
-          <DrawCardButton drawCard={drawCard} />
-          <div className="game-container">
-            {currentCard ? (
-              <InPlay
-                cardsRemaining={cardsRemaining}
-                currentCard={currentCard}
-                displayGif={displayGif}
-              />
-            ) : (
-              <Welcome cardsRemaining={cardsRemaining} displayGif={displayGif} />
-            )}
+          <div className="buttons-container">
+            <DrawCardButton drawCard={drawCard} />
+            <NewGameButton startNewGame={startNewGame} />
           </div>
+          <Game cardsRemaining={cardsRemaining} currentCard={currentCard} displayGif={displayGif} />
         </div>
       )}
     </div>
