@@ -9,7 +9,7 @@ import { gifQueryStore } from './utils/enums';
 import randomNumber from './utils/randomNumber';
 
 const deckAPI = 'https://deckofcardsapi.com/api/deck/';
-const giphyAPI = 'https://api.giphy.com/v1/gifs/search';
+const giphyAPI = 'https://api.giphy.com/v1/gifs/random';
 const giphyKey = 'zgiDSRigeFuCU4oGWmbaqMA3sXe6pP6V';
 
 const faceDownCard = {
@@ -24,7 +24,6 @@ const App = () => {
   const [currentCard, setCurrentCard] = useState(null);
   const [cardsRemaining, setCardsRemaining] = useState(52);
   const [pulledCards, setPulledCards] = useState([]);
-  const [gifStore, setGifStore] = useState({});
   const [displayGif, setDisplayGif] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -48,26 +47,14 @@ const App = () => {
   };
 
   const fetchGifs = async query => {
-    const embed_urls = [];
-
-    if (!gifStore[query]) {
-      const gifPromise = await fetch(`${giphyAPI}?api_key=${giphyKey}&q=${query}&limit=4`);
+    try {
+      const gifPromise = await fetch(`${giphyAPI}?api_key=${giphyKey}&tag=${query}`);
       const { data } = await gifPromise.json();
-      // data is an array of 4 gif objects
 
-      embed_urls.push(...data.map(gif => gif.embed_url));
-    } else {
-      embed_urls.push(...gifStore[query].slice());
+      setDisplayGif(data.embed_url);
+    } catch (err) {
+      console.log(`Fetch failed with ${err}`);
     }
-
-    // pop gif embed_url off array and set it as display gif
-    const popped = embed_urls.pop();
-    setDisplayGif(popped);
-
-    // create a temp obj, set query as string and remaining embed_urls as value to update state
-    const tempObj = {};
-    tempObj[query] = embed_urls;
-    setGifStore(Object.assign(gifStore, tempObj));
   };
 
   const startNewGame = () => {
@@ -76,7 +63,6 @@ const App = () => {
       fetchGifs('welcome');
       setCurrentCard(null);
       setCardsRemaining(52);
-      setGifStore({});
       setPulledCards([]);
     }
   };
@@ -117,6 +103,3 @@ const App = () => {
 };
 
 export default App;
-
-// w ->
-// h -> 313.984
