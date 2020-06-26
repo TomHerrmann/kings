@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import io from 'socket.io-client';
 
 import DrawCardButton from './components/DrawCardButton.jsx';
 import Game from './components/Game.jsx';
@@ -16,19 +17,21 @@ const faceDownCard = {
   // code is used only for alt tag
   code: 'facedown playing card',
   image: '../../assets/facedowncard.png',
-  value: 'facedown'
+  value: 'facedown',
 };
 
 const App = () => {
-  const [deckId, setDeckId] = useState(null);
-  const [currentCard, setCurrentCard] = useState(null);
   const [cardsRemaining, setCardsRemaining] = useState(52);
-  const [pulledCards, setPulledCards] = useState([]);
-  const [gifStore, setGifStore] = useState({});
+  const [currentCard, setCurrentCard] = useState(null);
+  const [deckId, setDeckId] = useState(null);
   const [displayGif, setDisplayGif] = useState(null);
+  const [gifStore, setGifStore] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const [party, setParty] = useState(null);
+  const [pulledCards, setPulledCards] = useState([]);
 
   useEffect(() => {
+    const socket = io('/party');
     fetchGifs('welcome');
     fetchDeck();
     setTimeout(() => {
@@ -47,15 +50,17 @@ const App = () => {
     }
   };
 
-  const fetchGifs = async query => {
+  const fetchGifs = async (query) => {
     const embed_urls = [];
 
     if (!gifStore[query]) {
-      const gifPromise = await fetch(`${giphyAPI}?api_key=${giphyKey}&q=${query}&limit=4`);
+      const gifPromise = await fetch(
+        `${giphyAPI}?api_key=${giphyKey}&q=${query}&limit=4`
+      );
       const { data } = await gifPromise.json();
       // data is an array of 4 gif objects
 
-      embed_urls.push(...data.map(gif => gif.embed_url));
+      embed_urls.push(...data.map((gif) => gif.embed_url));
     } else {
       embed_urls.push(...gifStore[query].slice());
     }
@@ -109,7 +114,11 @@ const App = () => {
             <DrawCardButton drawCard={drawCard} />
             <NewGameButton startNewGame={startNewGame} />
           </div>
-          <Game cardsRemaining={cardsRemaining} currentCard={currentCard} displayGif={displayGif} />
+          <Game
+            cardsRemaining={cardsRemaining}
+            currentCard={currentCard}
+            displayGif={displayGif}
+          />
         </main>
       )}
     </div>
@@ -117,6 +126,3 @@ const App = () => {
 };
 
 export default App;
-
-// w ->
-// h -> 313.984
