@@ -28,7 +28,10 @@ const App = () => {
   const [gifStore, setGifStore] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [partyName, setPartyName] = useState('party');
+  const [playerName, setPlayerName] = useState('player1');
   const [pulledCards, setPulledCards] = useState([]);
+
+  const socket = io();
 
   useEffect(() => {
     setupSockets();
@@ -40,10 +43,10 @@ const App = () => {
   }, []);
 
   const setupSockets = () => {
-    const socket = io();
-    socket.on('connect', (socket) => socket.emit('party', partyName));
-    socket.on('message', (data) => {
-      console.log('Incoming message:', data);
+    socket.emit('party', partyName);
+    socket.emit('newPlayer', playerName);
+    socket.on('message', (message) => {
+      console.log('message --> ', message);
     });
   };
 
@@ -98,6 +101,8 @@ const App = () => {
     try {
       const drawCardPromise = await fetch(`${deckAPI}/${deckId}/draw`);
       const { cards, remaining } = await drawCardPromise.json();
+
+      socket.emit('drawCard', cards[0]);
 
       fetchGifs(gifQueryStore[cards[0].value]);
       setCardsRemaining(remaining);

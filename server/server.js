@@ -30,6 +30,7 @@ io.on('connection', (socket) => {
   socket.on('party', (party) => {
     socket.join(party);
   });
+  socket.on('drawCard', (card) => console.log('Drawn card --> ', card));
   socket.on('disconnect', () => {
     console.log('A player disconnected');
   });
@@ -37,7 +38,7 @@ io.on('connection', (socket) => {
 
 // setup socket namespace
 const nsp = io.of('/party');
-nsp.on('connection', function(socket) {
+nsp.on('connection', (socket) => {
   console.log('someone joined the party');
   nsp.emit('hi', 'everyone!');
 });
