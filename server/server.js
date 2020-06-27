@@ -22,6 +22,20 @@ app.use((err, req, res, next) => {
   res.status(500).send('Something broke!');
 });
 
+// server side state
+
+const partyState = {
+  cardsRemaining: 52,
+  currentCard: null,
+  deckId: null,
+  displayGif: null,
+  gifStore: {},
+  isLoading: false,
+  partyName: '',
+  playerName: '',
+  pulledCards: [],
+};
+
 // socket setup
 const io = socketIO(server);
 
