@@ -27,17 +27,25 @@ const App = () => {
   const [displayGif, setDisplayGif] = useState(null);
   const [gifStore, setGifStore] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-  const [party, setParty] = useState(null);
+  const [partyName, setPartyName] = useState('party');
   const [pulledCards, setPulledCards] = useState([]);
 
   useEffect(() => {
-    const socket = io('/party');
+    setupSockets();
     fetchGifs('welcome');
     fetchDeck();
     setTimeout(() => {
       setIsLoading(false), 0;
     });
   }, []);
+
+  const setupSockets = () => {
+    const socket = io();
+    socket.on('connect', (socket) => socket.emit('party', partyName));
+    socket.on('message', (data) => {
+      console.log('Incoming message:', data);
+    });
+  };
 
   const fetchDeck = async () => {
     try {

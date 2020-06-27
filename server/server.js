@@ -27,13 +27,17 @@ const io = socketIO(server);
 
 io.on('connection', (socket) => {
   console.log('New player connected');
+  socket.on('party', (party) => {
+    socket.join(party);
+  });
   socket.on('disconnect', () => {
     console.log('A player disconnected');
   });
 });
 
-const party = io.of('/party');
-party.on('connection', function(socket) {
+// setup socket namespace
+const nsp = io.of('/party');
+nsp.on('connection', function(socket) {
   console.log('someone joined the party');
-  party.emit('hi', 'everyone!');
+  nsp.emit('hi', 'everyone!');
 });
