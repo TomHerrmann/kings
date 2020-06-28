@@ -22,37 +22,23 @@ app.use((err, req, res, next) => {
   res.status(500).send('Something broke!');
 });
 
-// server side state
+// // socket setup
+// const io = socketIO(server);
 
-const partyState = {
-  cardsRemaining: 52,
-  currentCard: null,
-  deckId: null,
-  displayGif: null,
-  gifStore: {},
-  isLoading: false,
-  partyName: '',
-  playerName: '',
-  pulledCards: [],
-};
+// io.on('connection', (socket) => {
+//   console.log('New player connected');
+//   socket.on('party', (party) => {
+//     socket.join(party);
+//   });
+//   socket.on('drawCard', (card) => console.log('Drawn card --> ', card));
+//   socket.on('disconnect', () => {
+//     console.log('A player disconnected');
+//   });
+// });
 
-// socket setup
-const io = socketIO(server);
-
-io.on('connection', (socket) => {
-  console.log('New player connected');
-  socket.on('party', (party) => {
-    socket.join(party);
-  });
-  socket.on('drawCard', (card) => console.log('Drawn card --> ', card));
-  socket.on('disconnect', () => {
-    console.log('A player disconnected');
-  });
-});
-
-// setup socket namespace
-const nsp = io.of('/party');
-nsp.on('connection', (socket) => {
-  console.log('someone joined the party');
-  nsp.emit('hi', 'everyone!');
-});
+// // setup socket namespace
+// const nsp = io.of('/party');
+// nsp.on('connection', (socket) => {
+//   console.log('someone joined the party');
+//   nsp.emit('hi', 'everyone!');
+// });

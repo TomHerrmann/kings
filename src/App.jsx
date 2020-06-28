@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { connect, useStore } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as actions from './actions/actions';
 import io from 'socket.io-client';
 
 import DrawCardButton from './components/DrawCardButton.jsx';
@@ -6,12 +9,8 @@ import Game from './components/Game.jsx';
 import LoadingIcon from './components/LoadingIcon.jsx';
 import NewGameButton from './components/NewGameButton.jsx';
 
-import { gifQueryStore } from './utils/enums';
+import { deckAPI, gifQueryStore } from './utils/enums';
 import randomNumber from './utils/randomNumber';
-
-const deckAPI = 'https://deckofcardsapi.com/api/deck/';
-const giphyAPI = 'https://api.giphy.com/v1/gifs/search';
-const giphyKey = 'zgiDSRigeFuCU4oGWmbaqMA3sXe6pP6V';
 
 const faceDownCard = {
   // code is used only for alt tag
@@ -20,98 +19,64 @@ const faceDownCard = {
   value: 'facedown',
 };
 
-const App = () => {
+// ADD Create / Join party modal - must be 21+ required checkbox
+// ADD Name modal
+// ADD Game Rules modal
+// ADD Game Rules field
+// ADD KING Rules field
+// ADD Current play / queue
+// ADD Question Master field
+
+const App = ({ cardsGet, deckId, gameNew, isLoading }) => {
   const [cardsRemaining, setCardsRemaining] = useState(52);
-  const [currentCard, setCurrentCard] = useState(null);
-  const [deckId, setDeckId] = useState(null);
-  const [displayGif, setDisplayGif] = useState(null);
-  const [gifStore, setGifStore] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
-  const [partyName, setPartyName] = useState('party');
-  const [playerName, setPlayerName] = useState('player1');
   const [pulledCards, setPulledCards] = useState([]);
 
-  const socket = io();
+  // const socket = io();
 
   useEffect(() => {
-    setupSockets();
-    fetchGifs('welcome');
     fetchDeck();
-    setTimeout(() => {
-      setIsLoading(false), 0;
-    });
   }, []);
 
-  const setupSockets = () => {
-    socket.emit('party', partyName);
-    socket.emit('newPlayer', playerName);
-    socket.on('message', (message) => {
-      console.log('message --> ', message);
-    });
-  };
+  // const setupSockets = () => {
+  //   socket.emit('party', partyName);
+  //   socket.emit('newPlayer', playerName);
+  // };
 
   const fetchDeck = async () => {
     try {
       const deckPromise = await fetch(`${deckAPI}new/shuffle/`);
       const { deck_id } = await deckPromise.json();
 
-      setDeckId(deck_id);
+      cardsGet(deck_id);
     } catch (err) {
       console.log(`Fetch failed with ${err}`);
     }
   };
 
-  const fetchGifs = async (query) => {
-    const embed_urls = [];
+  // const fetchGifs = async (query) => {
+  //   const embed_urls = [];
 
-    if (!gifStore[query]) {
-      const gifPromise = await fetch(
-        `${giphyAPI}?api_key=${giphyKey}&q=${query}&limit=4`
-      );
-      const { data } = await gifPromise.json();
-      // data is an array of 4 gif objects
+  //   if (!gifStore[query]) {
+  //     const gifPromise = await fetch(
+  //       `${giphyAPI}?api_key=${giphyKey}&q=${query}&limit=4`
+  //     );
+  //     const { data } = await gifPromise.json();
+  //     // data is an array of 4 gif objects
 
-      embed_urls.push(...data.map((gif) => gif.embed_url));
-    } else {
-      embed_urls.push(...gifStore[query].slice());
-    }
+  //     embed_urls.push(...data.map((gif) => gif.embed_url));
+  //   } else {
+  //     embed_urls.push(...gifStore[query].slice());
+  //   }
 
-    // pop gif embed_url off array and set it as display gif
-    const popped = embed_urls.pop();
-    setDisplayGif(popped);
+  //   // pop gif embed_url off array and set it as display gif
+  //   const popped = embed_urls.pop();
+  //   setDisplayGif(popped);
 
-    // create a temp obj, set query as string and remaining embed_urls as value to update state
-    const tempObj = {};
-    tempObj[query] = embed_urls;
-    setGifStore(Object.assign(gifStore, tempObj));
-  };
-
-  const startNewGame = () => {
-    if (cardsRemaining !== 52) {
-      fetchDeck();
-      fetchGifs('welcome');
-      setCurrentCard(null);
-      setCardsRemaining(52);
-      setGifStore({});
-      setPulledCards([]);
-    }
-  };
-
-  const drawCard = async () => {
-    try {
-      const drawCardPromise = await fetch(`${deckAPI}/${deckId}/draw`);
-      const { cards, remaining } = await drawCardPromise.json();
-
-      socket.emit('drawCard', cards[0]);
-
-      fetchGifs(gifQueryStore[cards[0].value]);
-      setCardsRemaining(remaining);
-      setCurrentCard(cards[0]);
-      setPulledCards(pulledCards.concat(cards[0]));
-    } catch (err) {
-      console.log(`Fetch failed with ${err}`);
-    }
-  };
+  //   // create a temp obj, set query as string and remaining embed_urls as value to update state
+  //   const tempObj = {};
+  //   tempObj[query] = embed_urls;
+  //   setGifStore(Object.assign(gifStore, tempObj));
+  // };
 
   return (
     <div className="app">
@@ -124,18 +89,26 @@ const App = () => {
         // <div className="overlay">
         <main>
           <div className="buttons-container">
-            <DrawCardButton drawCard={drawCard} />
-            <NewGameButton startNewGame={startNewGame} />
+            <DrawCardButton />
+            <NewGameButton />
           </div>
-          <Game
-            cardsRemaining={cardsRemaining}
-            currentCard={currentCard}
-            displayGif={displayGif}
-          />
+          <Game />
         </main>
       )}
     </div>
   );
 };
 
-export default App;
+const mapStateToProps = (state) => {
+  return state;
+};
+
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators({ ...actions }, dispatch);
+
+const AppContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
+
+export default AppContainer;

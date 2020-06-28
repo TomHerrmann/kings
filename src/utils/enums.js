@@ -1,3 +1,5 @@
+export const deckAPI = 'https://deckofcardsapi.com/api/deck/';
+
 export const rulesStore = {
   '2': 'you',
   '3': 'me',
@@ -12,7 +14,7 @@ export const rulesStore = {
   QUEEN: 'question master',
   KING: 'make a rule',
   ACE: 'social',
-  facedown: 'click "draw card" to play'
+  facedown: 'click "draw card" to play',
 };
 
 export const gifQueryStore = {
@@ -28,5 +30,5 @@ export const gifQueryStore = {
   JACK: 'never have i ever',
   QUEEN: 'question',
   KING: 'rules',
-  ACE: 'cheers'
+  ACE: 'cheers',
 };
