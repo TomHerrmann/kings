@@ -83,18 +83,19 @@ const App = ({ cardsGet, deckId, gameNew, isLoading }) => {
       <div className="title-container">
         <h1>Kings</h1>
       </div>
-      {isLoading ? (
-        <LoadingIcon />
-      ) : (
-        // <div className="overlay">
-        <main>
-          <div className="buttons-container">
-            <DrawCardButton />
-            <NewGameButton />
-          </div>
-          <Game />
-        </main>
-      )}
+      <main>
+        {isLoading ? (
+          <LoadingIcon />
+        ) : (
+          <>
+            <div className="buttons-container">
+              <DrawCardButton />
+              <NewGameButton />
+            </div>
+            <Game />
+          </>
+        )}
+      </main>
     </div>
   );
 };
