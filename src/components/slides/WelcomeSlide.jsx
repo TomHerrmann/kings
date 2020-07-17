@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { slideSelect, cardsGet } from '../../actions/actions';
+import { slideSelect } from '../../actions/partyActions';
 
 const WelcomeSlide = ({ carouselEl }) => {
   const dispatch = useDispatch();

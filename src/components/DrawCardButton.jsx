@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useStore } from 'react-redux';
-import { cardsDraw, gameLoading } from '../actions/actions';
+import { cardsDraw, gameLoading } from '../actions/gameActions';
 
 import { deckAPI } from '../utils/enums';
 

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { connect, useStore } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as actions from './actions/actions';
+import * as gameActions from './actions/gameActions';
+import * as partyActions from './actions/partyActions';
 import io from 'socket.io-client';
 
 import DrawCardButton from './components/DrawCardButton.jsx';
@@ -80,7 +81,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) =>
-  bindActionCreators({ ...actions }, dispatch);
+  bindActionCreators({ ...gameActions, ...partyActions }, dispatch);
 
 const AppContainer = connect(
   mapStateToProps,

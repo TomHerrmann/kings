@@ -1,5 +1,4 @@
 import {
-  // game actionTypes
   CARDS_GET,
   CARDS_GET_ERROR,
   CARDS_DRAW,
@@ -7,16 +6,9 @@ import {
   GAME_LOADING,
   GAME_NEW,
   GAME_RULE_CREATE,
-  // party actionTypes
-  SLIDE_SELECT,
-  PARTY_CREATE,
-  PARTY_JOIN,
-  USER_ADD,
-} from '../constants/actionTypes';
+} from '../constants/gameActionTypes';
 
-// seperate state / game & party
 const initialState = {
-  // game state
   cardsRemaining: 52,
   currentCard: null,
   deckId: null,
@@ -24,17 +16,10 @@ const initialState = {
   gifStore: {},
   isLoading: true,
   pulledCards: [],
-  // party state
-  slideStatus: 'create',
-  carouselOpen: true,
-  partyName: '',
-  playerName: '',
-  players: [],
 };
 
-const reducer = (state = initialState, action) => {
+const gameReducer = (state = initialState, action) => {
   switch (action.type) {
-    // game cases
     case CARDS_GET: {
       const deckId = action.payload;
 
@@ -93,37 +78,9 @@ const reducer = (state = initialState, action) => {
         ...state,
       };
     }
-
-    // party cases
-    case SLIDE_SELECT: {
-      const slideStatus = action.payload;
-
-      return {
-        ...state,
-        slideStatus,
-      };
-    }
-    case PARTY_CREATE: {
-      const partyName = action.payload;
-      return {
-        ...state,
-      };
-    }
-    case PARTY_JOIN: {
-      const partyName = action.payload;
-      return {
-        ...state,
-      };
-    }
-    case USER_ADD: {
-      const nickname = action.payload;
-      return {
-        ...state,
-      };
-    }
     default:
       return state;
   }
 };
 
-export default reducer;
+export default gameReducer;

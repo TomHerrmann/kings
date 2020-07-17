@@ -1,5 +1,4 @@
 import {
-  // game actions
   CARDS_GET,
   CARDS_GET_ERROR,
   CARDS_DRAW,
@@ -7,14 +6,8 @@ import {
   GAME_LOADING,
   GAME_NEW,
   GAME_RULE_CREATE,
-  // party actions
-  SLIDE_SELECT,
-  PARTY_CREATE,
-  PARTY_JOIN,
-  USER_ADD,
-} from '../constants/actionTypes';
+} from '../constants/gameActionTypes';
 
-// game actions
 export const cardsGet = (deckId) => ({
   type: CARDS_GET,
   payload: deckId,
@@ -48,25 +41,4 @@ export const gameNew = () => ({
 export const gameRuleCreate = () => ({
   type: GAME_RULE_CREATE,
   payload: null,
-});
-
-// party actions
-export const slideSelect = (selected) => ({
-  type: SLIDE_SELECT,
-  payload: selected,
-});
-
-export const partyCreate = (partyName) => ({
-  type: PARTY_CREATE,
-  payload: partyName,
-});
-
-export const partyJoin = (partyName) => ({
-  type: PARTY_JOIN,
-  payload: partyName,
-});
-
-export const userAdd = (nickname) => ({
-  type: USER_ADD,
-  payload: nickname,
 });

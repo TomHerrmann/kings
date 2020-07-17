@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { userAdd, partyCreate, partyJoin } from '../../actions/actions';
+import { userAdd, partyCreate, partyJoin } from '../../actions/partyActions';
 
 const FormSlide = ({ carouselEl, carouselStatus }) => {
   const dispatch = useDispatch();
