@@ -90,8 +90,7 @@ header h1 {
 
 .buttons-container {
   display: flex;
-  justify-content: space-between;
-  margin: 25px 350px 50px 350px;
+  justify-content: center;
 }
 
 .game-container {
