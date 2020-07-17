@@ -6,8 +6,8 @@ import {
 } from '../constants/partyActionTypes';
 
 const initialState = {
-  slideStatus: 'create',
   carouselOpen: true,
+  slideStatus: 'create',
   partyName: '',
   playerName: '',
   players: [],
@@ -40,6 +40,7 @@ const partyReducer = (state = initialState, action) => {
       const nickname = action.payload;
       return {
         ...state,
+        carouselOpen: false,
       };
     }
     default:
