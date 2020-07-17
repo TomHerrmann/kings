@@ -6,8 +6,10 @@ import {
   GAME_LOADING,
   GAME_NEW,
   GAME_RULE_CREATE,
+  MODAL_SELECT,
   PARTY_CREATE,
-  USER_CREATE,
+  PARTY_JOIN,
+  USER_ADD,
 } from '../constants/actionTypes';
 
 export const cardsGet = (deckId) => ({
@@ -45,12 +47,22 @@ export const gameRuleCreate = () => ({
   payload: null,
 });
 
-export const partyCreate = () => ({
-  type: PARTY_CREATE,
-  payload: null,
+export const modalSelect = (selected) => ({
+  type: MODAL_SELECT,
+  payload: selected,
 });
 
-export const userCreate = () => ({
-  type: USER_CREATE,
-  payload: null,
+export const partyCreate = (partyName) => ({
+  type: PARTY_CREATE,
+  payload: partyName,
+});
+
+export const partyJoin = (partyName) => ({
+  type: PARTY_JOIN,
+  payload: partyName,
+});
+
+export const userAdd = (nickname) => ({
+  type: USER_ADD,
+  payload: nickname,
 });

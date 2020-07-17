@@ -10,7 +10,7 @@ const NewGameButton = () => {
   const { cardsRemaining, deckId } = store.getState();
 
   return (
-    <div className="new-game-button-container">
+    <section className="new-game-button-container">
       <button
         className="new"
         onClick={async () => {
@@ -30,7 +30,7 @@ const NewGameButton = () => {
       >
         New Game
       </button>
-    </div>
+    </section>
   );
 };
 

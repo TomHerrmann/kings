@@ -1,9 +1,6 @@
 import React from 'react';
 import { useDispatch, useStore } from 'react-redux';
-import {
-  cardsDraw,
-  gameLoading,
-} from '../actions/actions'; /* destructure later */
+import { cardsDraw, gameLoading } from '../actions/actions';
 
 import { deckAPI } from '../utils/enums';
 
@@ -13,7 +10,7 @@ const DrawCardButton = () => {
   const { deckId } = store.getState();
 
   return (
-    <div className="draw-card-button-container">
+    <section className="draw-card-button-container">
       <button
         className="draw"
         onClick={async () => {
@@ -33,7 +30,7 @@ const DrawCardButton = () => {
       >
         Draw a Card
       </button>
-    </div>
+    </section>
   );
 };
 

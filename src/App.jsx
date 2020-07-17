@@ -7,6 +7,7 @@ import io from 'socket.io-client';
 import DrawCardButton from './components/DrawCardButton.jsx';
 import Game from './components/Game.jsx';
 import LoadingIcon from './components/LoadingIcon.jsx';
+import Modal from './components/Modal.jsx';
 import NewGameButton from './components/NewGameButton.jsx';
 
 import { deckAPI, gifQueryStore } from './utils/enums';
@@ -28,19 +29,14 @@ const faceDownCard = {
 // ADD Question Master field
 
 const App = ({ cardsGet, deckId, gameNew, isLoading }) => {
-  const [cardsRemaining, setCardsRemaining] = useState(52);
-  const [pulledCards, setPulledCards] = useState([]);
-
-  // const socket = io();
+  // const socket = io('/party');
+  // socket.on('greeting', (data) => {
+  //   document.querySelector('.title-container').append(data);
+  // });
 
   useEffect(() => {
     fetchDeck();
   }, []);
-
-  // const setupSockets = () => {
-  //   socket.emit('party', partyName);
-  //   socket.emit('newPlayer', playerName);
-  // };
 
   const fetchDeck = async () => {
     try {
@@ -78,25 +74,28 @@ const App = ({ cardsGet, deckId, gameNew, isLoading }) => {
   //   setGifStore(Object.assign(gifStore, tempObj));
   // };
 
+  const renderMain = () => {
+    return isLoading ? (
+      <LoadingIcon />
+    ) : (
+      <>
+        <section className="buttons-container">
+          <DrawCardButton />
+          <NewGameButton />
+        </section>
+        <Game />
+      </>
+    );
+  };
+
   return (
-    <div className="app">
-      <div className="title-container">
+    <main className="app">
+      <Modal />
+      <header className="title-container">
         <h1>Kings</h1>
-      </div>
-      <main>
-        {isLoading ? (
-          <LoadingIcon />
-        ) : (
-          <>
-            <div className="buttons-container">
-              <DrawCardButton />
-              <NewGameButton />
-            </div>
-            <Game />
-          </>
-        )}
-      </main>
-    </div>
+      </header>
+      <section>{renderMain()}</section>
+    </main>
   );
 };
 

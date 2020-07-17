@@ -10,9 +10,9 @@ const Game = () => {
   const { cardsRemaining, currentCard } = store.getState();
 
   return (
-    <div className="game-container" className="game-container">
-      <div className="game-half">
-        <div>
+    <section className="game-container">
+      <section className="game-half">
+        <>
           {currentCard ? (
             <img src={currentCard.image} alt={currentCard.code} />
           ) : (
@@ -22,22 +22,22 @@ const Game = () => {
               width="225.996px"
             />
           )}
-        </div>
-        <div>cards remaining: {cardsRemaining}</div>
-      </div>
-      <div className="game-half">
-        <div className="prompt-container">
+        </>
+        <section>cards remaining: {cardsRemaining}</section>
+      </section>
+      <section className="game-half">
+        <section className="prompt-container">
           <strong>
             {currentCard
               ? rulesStore[currentCard.value]
               : 'click draw card to play'}
           </strong>
-        </div>
-        <div className="gif-container">
+        </section>
+        <section className="gif-container">
           {/* <iframe src={displayGif}></iframe> */}
-        </div>
-      </div>
-    </div>
+        </section>
+      </section>
+    </section>
   );
 };
 

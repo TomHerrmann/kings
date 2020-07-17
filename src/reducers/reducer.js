@@ -6,8 +6,10 @@ import {
   GAME_LOADING,
   GAME_NEW,
   GAME_RULE_CREATE,
+  MODAL_SELECT,
   PARTY_CREATE,
-  USER_CREATE,
+  PARTY_JOIN,
+  USER_ADD,
 } from '../constants/actionTypes';
 
 const initialState = {
@@ -17,8 +19,11 @@ const initialState = {
   displayGif: null,
   gifStore: {},
   isLoading: true,
+  modalStatus: 'create',
+  modalOpen: true,
   partyName: '',
   playerName: '',
+  players: [],
   pulledCards: [],
 };
 
@@ -41,7 +46,7 @@ const reducer = (state = initialState, action) => {
     case CARDS_DRAW: {
       const { currentCard, cardsRemaining } = action.payload;
 
-      const pulledCards = [state.pulledCards].push(currentCard);
+      const pulledCards = [...state.pulledCards].push(currentCard);
 
       return {
         ...state,
@@ -82,12 +87,27 @@ const reducer = (state = initialState, action) => {
         ...state,
       };
     }
+    case MODAL_SELECT: {
+      const modalStatus = action.payload;
+      return {
+        ...state,
+        modalStatus,
+      };
+    }
     case PARTY_CREATE: {
+      const partyName = action.payload;
       return {
         ...state,
       };
     }
-    case USER_CREATE: {
+    case PARTY_JOIN: {
+      const partyName = action.payload;
+      return {
+        ...state,
+      };
+    }
+    case USER_ADD: {
+      const nickname = action.payload;
       return {
         ...state,
       };

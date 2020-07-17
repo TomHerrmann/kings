@@ -13,9 +13,13 @@ const server = app.listen(port, () => console.log(`Listening on port ${port}`));
 app.use(bodyParser.json());
 app.use(express.static(path.resolve(__dirname, '../dist')));
 
-app.get('/', (req, res) =>
-  res.sendFile(path.resolve(__dirname, '../dist/index.html'))
-);
+app.get('/', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../dist/index.html'));
+});
+
+app.get('*', (req, res) => {
+  res.status(404).send('Something broke!');
+});
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
@@ -27,10 +31,7 @@ app.use((err, req, res, next) => {
 
 // io.on('connection', (socket) => {
 //   console.log('New player connected');
-//   socket.on('party', (party) => {
-//     socket.join(party);
-//   });
-//   socket.on('drawCard', (card) => console.log('Drawn card --> ', card));
+
 //   socket.on('disconnect', () => {
 //     console.log('A player disconnected');
 //   });
@@ -40,5 +41,5 @@ app.use((err, req, res, next) => {
 // const nsp = io.of('/party');
 // nsp.on('connection', (socket) => {
 //   console.log('someone joined the party');
-//   nsp.emit('hi', 'everyone!');
+//   nsp.emit('greeting', 'Hi everyone!');
 // });
