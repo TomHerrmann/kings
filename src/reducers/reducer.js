@@ -1,4 +1,5 @@
 import {
+  // game actionTypes
   CARDS_GET,
   CARDS_GET_ERROR,
   CARDS_DRAW,
@@ -6,29 +7,34 @@ import {
   GAME_LOADING,
   GAME_NEW,
   GAME_RULE_CREATE,
-  MODAL_SELECT,
+  // party actionTypes
+  SLIDE_SELECT,
   PARTY_CREATE,
   PARTY_JOIN,
   USER_ADD,
 } from '../constants/actionTypes';
 
+// seperate state / game & party
 const initialState = {
+  // game state
   cardsRemaining: 52,
   currentCard: null,
   deckId: null,
   displayGif: null,
   gifStore: {},
   isLoading: true,
-  modalStatus: 'create',
-  modalOpen: true,
+  pulledCards: [],
+  // party state
+  slideStatus: 'create',
+  carouselOpen: true,
   partyName: '',
   playerName: '',
   players: [],
-  pulledCards: [],
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    // game cases
     case CARDS_GET: {
       const deckId = action.payload;
 
@@ -87,12 +93,14 @@ const reducer = (state = initialState, action) => {
         ...state,
       };
     }
-    case MODAL_SELECT: {
-      const modalStatus = action.payload;
-      console.log('status in modal select reducer -> ', modalStatus);
+
+    // party cases
+    case SLIDE_SELECT: {
+      const slideStatus = action.payload;
+
       return {
         ...state,
-        modalStatus,
+        slideStatus,
       };
     }
     case PARTY_CREATE: {

@@ -7,7 +7,7 @@ import io from 'socket.io-client';
 import DrawCardButton from './components/DrawCardButton.jsx';
 import Game from './components/Game.jsx';
 import LoadingIcon from './components/LoadingIcon.jsx';
-import Modal from './components/Modal.jsx';
+import Carousel from './components/Carousel.jsx';
 import NewGameButton from './components/NewGameButton.jsx';
 
 import { deckAPI, gifQueryStore } from './utils/enums';
@@ -20,9 +20,9 @@ const faceDownCard = {
   value: 'facedown',
 };
 
-// ADD Create / Join party modal - must be 21+ required checkbox
-// ADD Name modal
-// ADD Game Rules modal
+// ADD Create / Join party Carousel - must be 21+ required checkbox
+// ADD Name Carousel
+// ADD Game Rules Carousel
 // ADD Game Rules field
 // ADD KING Rules field
 // ADD Current play / queue
@@ -31,7 +31,7 @@ const faceDownCard = {
 const App = ({ cardsGet, deckId, gameNew, isLoading }) => {
   // const socket = io('/party');
   // socket.on('greeting', (data) => {
-  //   document.querySelector('.title-container').append(data);
+  //   document.querySelector('header').append(data);
   // });
 
   useEffect(() => {
@@ -49,32 +49,9 @@ const App = ({ cardsGet, deckId, gameNew, isLoading }) => {
     }
   };
 
-  // const fetchGifs = async (query) => {
-  //   const embed_urls = [];
+  // handle gif function
 
-  //   if (!gifStore[query]) {
-  //     const gifPromise = await fetch(
-  //       `${giphyAPI}?api_key=${giphyKey}&q=${query}&limit=4`
-  //     );
-  //     const { data } = await gifPromise.json();
-  //     // data is an array of 4 gif objects
-
-  //     embed_urls.push(...data.map((gif) => gif.embed_url));
-  //   } else {
-  //     embed_urls.push(...gifStore[query].slice());
-  //   }
-
-  //   // pop gif embed_url off array and set it as display gif
-  //   const popped = embed_urls.pop();
-  //   setDisplayGif(popped);
-
-  //   // create a temp obj, set query as string and remaining embed_urls as value to update state
-  //   const tempObj = {};
-  //   tempObj[query] = embed_urls;
-  //   setGifStore(Object.assign(gifStore, tempObj));
-  // };
-
-  const renderMain = () => {
+  const renderGame = () => {
     return isLoading ? (
       <LoadingIcon />
     ) : (
@@ -90,11 +67,10 @@ const App = ({ cardsGet, deckId, gameNew, isLoading }) => {
 
   return (
     <main className="app">
-      <Modal />
-      <header className="title-container">
+      <header>
         <h1>Kings</h1>
       </header>
-      <section>{renderMain()}</section>
+      <Carousel />
     </main>
   );
 };

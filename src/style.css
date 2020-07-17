@@ -16,46 +16,38 @@ body {
 }
 
 .app {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  width: 100%;
 }
 
-.modal-overlay {
+header {
   display: flex;
   justify-content: center;
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  right: 0px;
-  bottom: 0px;
-  background-color: rgba(255, 255, 255, 0.75);
 }
 
-.modal-content {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  height: fit-content;
-  width: 60%;
-  max-width: 380px;
-  top: 10%;
-  bottom: 20%;
-  border: 0.5px solid var(--color);
-  border-radius: 4px;
-  box-shadow: 1px 2px 2px --color-dark;
-  background: var(--background-color);
-  outline: none;
-  padding: 5px 20px 20px;
-}
-
-iframe {
-  all: unset;
-}
-
-.app h1 {
+header h1 {
   all: unset;
   font-size: 100px;
+}
+
+.carousel {
+  height: 500px;
+  width: 300px;
+  margin: auto;
+  padding: 150px 0;
+}
+
+.slick-track {
+  height: 100%;
+}
+
+.slick-list {
+  height: 100%;
+}
+
+.slick-slide {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .loading-icon {
@@ -96,10 +88,6 @@ iframe {
   }
 }
 
-main {
-  width: 100%;
-}
-
 .buttons-container {
   display: flex;
   justify-content: space-between;
@@ -129,6 +117,10 @@ main {
 
 .gif-container p {
   margin: unset;
+}
+
+iframe {
+  all: unset;
 }
 
 .cards-remaining-container {

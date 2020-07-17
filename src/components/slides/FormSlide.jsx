@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { userAdd, partyCreate, partyJoin } from '../../actions/actions';
 
-const FormModal = ({ modalStatus }) => {
+const FormSlide = ({ carouselEl, carouselStatus }) => {
   const dispatch = useDispatch();
 
   const [formInput, setFormInput] = useState('');
@@ -10,37 +10,50 @@ const FormModal = ({ modalStatus }) => {
   const [formPlaceholder, setFormPlaceholder] = useState('');
   const [actionCreator, setActionCreator] = useState(null);
 
-  console.log('modalStatus in form -> ', modalStatus);
-
   useEffect(() => {
-    switch (modalStatus) {
+    switch (carouselStatus) {
       case 'create': {
         setFormLabel('party name');
         setFormPlaceholder('my party');
-        setActionCreator(partyCreate);
+        setActionCreator(() => partyCreate);
         return;
       }
       case 'join': {
         setFormLabel('party name');
         setFormPlaceholder('my party');
-        setActionCreator(partyJoin);
+        setActionCreator(() => partyJoin);
         return;
       }
       case 'nickname': {
         setFormLabel('nickname');
         setFormPlaceholder('my nickname');
-        setActionCreator(userAdd);
+        setActionCreator(() => userAdd);
+        return;
+      }
+      default: {
+        setFormLabel('party name');
+        setFormPlaceholder('my party');
+        setActionCreator(() => partyCreate);
         return;
       }
     }
-  }, [modalStatus]);
+  }, [carouselStatus]);
 
-  const onFormSubmit = () => {
+  const onFormSubmit = (e) => {
+    e.preventDefault();
     dispatch(actionCreator(formInput));
+    carouselEl.current.slickNext();
+  };
+
+  const prevSlide = () => {
+    carouselEl.current.slickPrev();
   };
 
   return (
-    <section className="modal-form">
+    <section className="form-slide">
+      <button className="back-botton" onClick={prevSlide}>
+        {'<back'}
+      </button>
       <form onSubmit={onFormSubmit}>
         <label>
           {formLabel}
@@ -57,11 +70,9 @@ const FormModal = ({ modalStatus }) => {
             value={formInput}
           />
         </label>
-        <button>{'<back'}</button>
-        <button>{'next >'}</button>
       </form>
     </section>
   );
 };
 
-export default FormModal;
+export default FormSlide;

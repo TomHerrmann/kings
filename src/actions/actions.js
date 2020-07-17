@@ -1,4 +1,5 @@
 import {
+  // game actions
   CARDS_GET,
   CARDS_GET_ERROR,
   CARDS_DRAW,
@@ -6,12 +7,14 @@ import {
   GAME_LOADING,
   GAME_NEW,
   GAME_RULE_CREATE,
-  MODAL_SELECT,
+  // party actions
+  SLIDE_SELECT,
   PARTY_CREATE,
   PARTY_JOIN,
   USER_ADD,
 } from '../constants/actionTypes';
 
+// game actions
 export const cardsGet = (deckId) => ({
   type: CARDS_GET,
   payload: deckId,
@@ -47,8 +50,9 @@ export const gameRuleCreate = () => ({
   payload: null,
 });
 
-export const modalSelect = (selected) => ({
-  type: MODAL_SELECT,
+// party actions
+export const slideSelect = (selected) => ({
+  type: SLIDE_SELECT,
   payload: selected,
 });
 
