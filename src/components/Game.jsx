@@ -1,28 +1,28 @@
 import React from 'react';
-import { useStore } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import faceDownCard from '../../assets/facedowncard.png';
 
 import { rulesStore } from '../utils/enums';
 
 const Game = () => {
-  const store = useStore();
-  const { cardsRemaining, currentCard } = store.getState();
+  const { cardsRemaining, currentCard } = useSelector((state) => ({
+    ...state.gameReducer,
+    ...state.partyReducer,
+  }));
+
+  const renderCard = () => {
+    return currentCard ? (
+      <img src={currentCard.image} alt={currentCard.code} />
+    ) : (
+      <img src={faceDownCard} alt="back-of-a-playing-card" width="225.996px" />
+    );
+  };
 
   return (
-    <section className="game-container">
+    <>
       <section className="game-half">
-        <>
-          {currentCard ? (
-            <img src={currentCard.image} alt={currentCard.code} />
-          ) : (
-            <img
-              src={faceDownCard}
-              alt="back-of-a-playing-card"
-              width="225.996px"
-            />
-          )}
-        </>
+        <>{renderCard()}</>
         <section>cards remaining: {cardsRemaining}</section>
       </section>
       <section className="game-half">
@@ -37,7 +37,7 @@ const Game = () => {
           {/* <iframe src={displayGif}></iframe> */}
         </section>
       </section>
-    </section>
+    </>
   );
 };
 

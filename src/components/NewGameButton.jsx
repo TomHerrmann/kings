@@ -1,33 +1,31 @@
 import React from 'react';
-import { useDispatch, useStore } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { gameLoading, gameNew } from '../actions/gameActions';
 
 import { deckAPI } from '../utils/enums';
 
 const NewGameButton = () => {
   const dispatch = useDispatch();
-  const store = useStore();
-  const { cardsRemaining, deckId } = store.getState();
+  const { cardsRemaining, deckId } = useSelector((state) => state.gameReducer);
+
+  const onClick = async () => {
+    if (cardsRemaining !== 52) {
+      try {
+        await fetch(`${deckAPI}${deckId}/shuffle/`);
+        await dispatch(gameNew());
+      } catch (err) {
+        console.log(`Fetch failed with ${err}`);
+      }
+
+      setTimeout(() => {
+        dispatch(gameLoading(false));
+      }, 250);
+    }
+  };
 
   return (
     <section className="new-game-button-container">
-      <button
-        className="new"
-        onClick={async () => {
-          if (cardsRemaining !== 52) {
-            try {
-              await fetch(`${deckAPI}${deckId}/shuffle/`);
-              await dispatch(gameNew());
-            } catch (err) {
-              console.log(`Fetch failed with ${err}`);
-            }
-
-            setTimeout(() => {
-              dispatch(gameLoading(false));
-            }, 250);
-          }
-        }}
-      >
+      <button className="new" onClick={onclick}>
         New Game
       </button>
     </section>

@@ -2,14 +2,13 @@ import React, { useRef } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { useDispatch, useStore } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import FormSlide from './slides/FormSlide.jsx';
 import WelcomeSlide from './slides/WelcomeSlide.jsx';
 
 const Carousel = () => {
-  const store = useStore();
-  const { carouselStatus } = store.getState();
+  const { carouselStatus } = useSelector((state) => state.gameReducer);
   const carouselEl = useRef();
 
   const sliderSettings = {
