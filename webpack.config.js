@@ -12,6 +12,7 @@ module.exports = {
       },
     },
   },
+  devtool: 'source-map',
   entry: ['babel-polyfill', './src/index.js'],
   mode: 'development',
   module: {
