@@ -20,24 +20,10 @@ const initialState = {
 
 const gameReducer = (state = initialState, action) => {
   switch (action.type) {
-    case CARDS_GET: {
-      const deckId = action.payload;
-
-      return {
-        ...state,
-        isLoading: false,
-        deckId,
-      };
-    }
-    case CARDS_GET_ERROR: {
-      return {
-        ...state,
-      };
-    }
     case CARDS_DRAW: {
       const { currentCard, cardsRemaining } = action.payload;
-
-      const pulledCards = [...state.pulledCards].push(currentCard);
+      const pulledCards = state.pulledCards.slice();
+      pulledCards.push(currentCard);
 
       return {
         ...state,
@@ -47,17 +33,30 @@ const gameReducer = (state = initialState, action) => {
         pulledCards,
       };
     }
-    case GAME_LOADING: {
-      const { isLoading } = action.payload;
+    case CARDS_GET: {
+      const deckId = action.payload;
 
       return {
         ...state,
-        isLoading,
+        deckId,
+      };
+    }
+    case CARDS_GET_ERROR: {
+      return {
+        ...state,
       };
     }
     case GAME_CATEGORY_CREATE: {
       return {
         ...state,
+      };
+    }
+    case GAME_LOADING: {
+      const isLoading = action.payload;
+
+      return {
+        ...state,
+        isLoading,
       };
     }
     case GAME_NEW: {
