@@ -1,9 +1,10 @@
 import React from 'react';
-import ReactModal from 'react-modal';
 import { useDispatch } from 'react-redux';
 import { modalSelect } from '../../actions/actions';
 
 const WelcomeModal = () => {
+  const dispatch = useDispatch();
+
   return (
     <section className="welcome-modal">
       <button

@@ -89,6 +89,7 @@ const reducer = (state = initialState, action) => {
     }
     case MODAL_SELECT: {
       const modalStatus = action.payload;
+      console.log('status in modal select reducer -> ', modalStatus);
       return {
         ...state,
         modalStatus,

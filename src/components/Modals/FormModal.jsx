@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch, useStore } from 'react-redux';
-import ReactModal from 'react-modal';
+import { useDispatch } from 'react-redux';
 import { userAdd, partyCreate, partyJoin } from '../../actions/actions';
 
 const FormModal = ({ modalStatus }) => {
+  const dispatch = useDispatch();
+
   const [formInput, setFormInput] = useState('');
   const [formLabel, setFormLabel] = useState('');
   const [formPlaceholder, setFormPlaceholder] = useState('');
   const [actionCreator, setActionCreator] = useState(null);
+
+  console.log('modalStatus in form -> ', modalStatus);
 
   useEffect(() => {
     switch (modalStatus) {
@@ -26,14 +29,14 @@ const FormModal = ({ modalStatus }) => {
       case 'nickname': {
         setFormLabel('nickname');
         setFormPlaceholder('my nickname');
-        setActionCreator(partyCreate);
+        setActionCreator(userAdd);
         return;
       }
     }
-  }, []);
+  }, [modalStatus]);
 
   const onFormSubmit = () => {
-    actionCreator(formInput);
+    dispatch(actionCreator(formInput));
   };
 
   return (
