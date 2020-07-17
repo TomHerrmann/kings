@@ -6,7 +6,6 @@ const WelcomeSlide = ({ carouselEl }) => {
   const dispatch = useDispatch();
 
   const nextSlide = () => {
-    console.log('ref -> ', carouselEl);
     carouselEl.current.slickNext();
   };
 

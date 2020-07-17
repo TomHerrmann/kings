@@ -15,6 +15,6 @@ render(
 
 if (module.hot) {
   module.hot.accept(AppContainer, function() {
-    console.log('Accepting the updated App module!');
+    console.log('Accepting the updated AppContainer module!');
   });
 }

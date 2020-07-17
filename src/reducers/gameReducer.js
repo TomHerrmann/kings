@@ -63,8 +63,6 @@ const gameReducer = (state = initialState, action) => {
     case GAME_NEW: {
       const { cardsRemaining, currentCard, pulledCards } = initialState;
 
-      console.log('new currentCard in gameNew reducer --> ', currentCard);
-
       return {
         ...state,
         cardsRemaining,
