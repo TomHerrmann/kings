@@ -14,8 +14,8 @@ const Carousel = () => {
   const carouselEl = useRef();
 
   const sliderSettings = {
+    arrows: false,
     className: 'carousel',
-    dots: true,
     infinite: false,
     speed: 500,
     slidesToShow: 1,
