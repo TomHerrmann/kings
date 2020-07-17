@@ -55,6 +55,8 @@ header h1 {
   position: relative;
   width: 80px;
   height: 80px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .loading-icon div {
   display: inline-block;
