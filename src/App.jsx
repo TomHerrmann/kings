@@ -31,11 +31,16 @@ const socket = io();
 
 const App = () => {
   const dispatch = useDispatch();
-  const { carouselOpen, isLoading } = useSelector((state) => ({
+  const state = useSelector((state) => ({
     ...state.gameReducer,
     ...state.partyReducer,
     ...state.socketReducer,
   }));
+  const { carouselOpen, isLoading } = state;
+
+  socket.on('partyCreated', (partyData) =>
+    console.log('on the frontend', partyData)
+  );
 
   useEffect(() => {
     fetchDeck();

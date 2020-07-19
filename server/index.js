@@ -34,10 +34,15 @@ io.on('connection', (socket) => {
   players++;
   console.log('New player connected - players:', players);
 
+  socket.on('createParty', async (newPartyData) => {
+    const { partyCode, partyName } = await newPartyData;
+
+    socket.join(partyCode);
+    io.in(partyCode).emit('partyCreated', { partyCode, partyName });
+  });
+
   socket.on('disconnect', () => {
     players--;
     console.log('A player disconnected - players:', players);
   });
 });
-
-// // setup socket room
