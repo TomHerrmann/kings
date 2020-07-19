@@ -8,7 +8,8 @@ const DrawCardButton = () => {
   const dispatch = useDispatch();
   const { deckId } = useSelector((state) => state.gameReducer);
 
-  const onClick = async () => {
+  const onButtonClick = async () => {
+    console.log('hittting');
     try {
       const drawCardPromise = await fetch(`${deckAPI}/${deckId}/draw`);
       const { cards, remaining } = await drawCardPromise.json();
@@ -27,7 +28,7 @@ const DrawCardButton = () => {
 
   return (
     <section className="draw-card-button-container">
-      <button className="draw" onClick={onClick}>
+      <button className="draw" onClick={onButtonClick}>
         Draw a Card
       </button>
     </section>

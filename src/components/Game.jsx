@@ -21,22 +21,13 @@ const Game = () => {
 
   return (
     <>
-      <section className="game-half">
-        <>{renderCard()}</>
-        <section>cards remaining: {cardsRemaining}</section>
-      </section>
-      <section className="game-half">
-        <section className="prompt-container">
-          <strong>
-            {currentCard
-              ? rulesStore[currentCard.value]
-              : 'click draw card to play'}
-          </strong>
-        </section>
-        <section className="gif-container">
-          {/* <iframe src={displayGif}></iframe> */}
-        </section>
-      </section>
+      <>{renderCard()}</>
+      cards remaining: {cardsRemaining}
+      <strong>
+        {currentCard
+          ? rulesStore[currentCard.value]
+          : 'click draw card to play'}
+      </strong>
     </>
   );
 };

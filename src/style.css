@@ -90,42 +90,20 @@ header h1 {
   }
 }
 
-.buttons-container {
-  display: flex;
-  justify-content: center;
-}
-
 .game-container {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
   margin: 0 350px;
 }
 
-.game-half {
+.buttons-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.gif-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  margin-top: 25px;
-}
-
-.gif-container p {
-  margin: unset;
 }
 
 iframe {
   all: unset;
-}
-
-.cards-remaining-container {
-  font-size: 50px;
 }
 
 button {
