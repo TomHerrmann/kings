@@ -22,7 +22,6 @@ const Carousel = () => {
 
   return (
     <Slider ref={carouselEl} {...sliderSettings}>
-      {/* {renderCarouselContent()} */}
       <WelcomeSlide carouselEl={carouselEl} />
       <FormSlide carouselEl={carouselEl} carouselStatus={carouselStatus} />
       <FormSlide carouselEl={carouselEl} carouselStatus="nickname" />
