@@ -9,7 +9,9 @@ import {
 // async action items using ~ sockets
 export const partySocketCreate = (socket, partyName) => {
   return (dispatch) => {
-    const partyCode = uniqueId();
+    const partyCode = Math.random()
+      .toString(36)
+      .substr(2, 4);
     const newPartyData = { partyCode, partyName };
 
     socket.emit('createParty', newPartyData);
