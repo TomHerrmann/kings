@@ -14,8 +14,6 @@ const DrawCardButton = () => {
       const drawCardPromise = await fetch(`${deckAPI}/${deckId}/draw`);
       const { cards, remaining } = await drawCardPromise.json();
 
-      console.log(cards);
-
       dispatch(cardsDraw(cards[0], remaining));
     } catch (err) {
       console.log(`Fetch failed with ${err}`);

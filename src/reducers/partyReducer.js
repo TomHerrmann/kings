@@ -7,10 +7,10 @@ import {
 
 const initialState = {
   carouselOpen: true,
-  slideStatus: 'create',
   partyName: '',
   playerName: '',
   players: [],
+  slideStatus: 'create',
 };
 
 const partyReducer = (state = initialState, action) => {
@@ -26,8 +26,10 @@ const partyReducer = (state = initialState, action) => {
     }
     case PARTY_CREATE: {
       const partyName = action.payload;
+
       return {
         ...state,
+        partyName,
       };
     }
     case PARTY_JOIN: {

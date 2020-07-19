@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
-import { connect, useSelector, useDispatch } from 'react-redux';
+import { connect, useSelector, useDispatch, useStore } from 'react-redux';
 import { cardsGet, gameLoading } from './actions/gameActions';
 import {} from './actions/partyActions';
+import { socketCreate } from './actions/socketActions';
 import io from 'socket.io-client';
 
 import DrawCardButton from './components/DrawCardButton.jsx';
@@ -33,10 +34,12 @@ const App = () => {
   const { carouselOpen, isLoading } = useSelector((state) => ({
     ...state.gameReducer,
     ...state.partyReducer,
+    ...state.socketReducer,
   }));
 
   useEffect(() => {
     fetchDeck();
+    dispatch(socketCreate(socket));
   }, []);
 
   useEffect(() => {
