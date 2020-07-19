@@ -26,12 +26,9 @@ const faceDownCard = {
 // ADD Current play / queue
 // ADD Question Master field
 
-const App = () => {
-  // const socket = io('/party');
-  // socket.on('greeting', (data) => {
-  //   document.querySelector('header').append(data);
-  // });
+const socket = io();
 
+const App = () => {
   const dispatch = useDispatch();
   const { carouselOpen, isLoading } = useSelector((state) => ({
     ...state.gameReducer,

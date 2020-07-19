@@ -26,20 +26,18 @@ app.use((err, req, res, next) => {
   res.status(500).send('Something broke!');
 });
 
-// // socket setup
-// const io = socketIO(server);
+// socket setup
+const io = socketIO(server);
 
-// io.on('connection', (socket) => {
-//   console.log('New player connected');
+let players = 0;
+io.on('connection', (socket) => {
+  players++;
+  console.log('New player connected - players:', players);
 
-//   socket.on('disconnect', () => {
-//     console.log('A player disconnected');
-//   });
-// });
+  socket.on('disconnect', () => {
+    players--;
+    console.log('A player disconnected - players:', players);
+  });
+});
 
-// // setup socket namespace
-// const nsp = io.of('/party');
-// nsp.on('connection', (socket) => {
-//   console.log('someone joined the party');
-//   nsp.emit('greeting', 'Hi everyone!');
-// });
+// // setup socket room
