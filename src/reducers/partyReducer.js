@@ -7,6 +7,7 @@ import {
 
 const initialState = {
   carouselOpen: true,
+  partyCode: null,
   partyName: '',
   playerName: '',
   players: [],
@@ -25,10 +26,11 @@ const partyReducer = (state = initialState, action) => {
       };
     }
     case PARTY_CREATE: {
-      const partyName = action.payload;
+      const { partyCode, partyName } = action.payload;
 
       return {
         ...state,
+        partyCode,
         partyName,
       };
     }
@@ -40,9 +42,13 @@ const partyReducer = (state = initialState, action) => {
     }
     case USER_ADD: {
       const nickname = action.payload;
+      const players = state.players.slice();
+      players.push(nickname);
+
       return {
         ...state,
         carouselOpen: false,
+        players,
       };
     }
     default:

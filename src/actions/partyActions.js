@@ -10,17 +10,18 @@ export const slideSelect = (selected) => ({
   payload: selected,
 });
 
-export const partyCreate = (partyName) => ({
+export const partyCreate = ({ partyCode, partyName }) => ({
   type: PARTY_CREATE,
-  payload: partyName,
+  payload: { partyCode, partyName },
 });
 
-export const partyJoin = (partyName) => ({
+export const partyJoin = (partyCode) => ({
   type: PARTY_JOIN,
-  payload: partyName,
+  payload: partyCode,
 });
 
-export const userAdd = (nickname) => ({
+export const userAdd = (socket, nickname) => ({
+  // ignore the socket
   type: USER_ADD,
   payload: nickname,
 });

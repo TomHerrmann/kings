@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect, useSelector, useDispatch, useStore } from 'react-redux';
 import { cardsGet, gameLoading } from './actions/gameActions';
-import {} from './actions/partyActions';
+import { partyCreate, partyJoin, userAdd } from './actions/partyActions';
 import { socketCreate } from './actions/socketActions';
 import io from 'socket.io-client';
 
@@ -38,9 +38,11 @@ const App = () => {
   }));
   const { carouselOpen, isLoading } = state;
 
-  socket.on('partyCreated', (partyData) =>
-    console.log('on the frontend', partyData)
-  );
+  socket.on('partyCreated', (partyData) => {
+    dispatch(partyCreate(partyData));
+  });
+
+  console.log('party state -> ', state);
 
   useEffect(() => {
     fetchDeck();
