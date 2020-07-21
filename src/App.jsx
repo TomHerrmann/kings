@@ -41,6 +41,9 @@ const App = () => {
   socket.on('partyCreated', (partyData) => {
     dispatch(partyCreate(partyData));
   });
+  socket.on('newPlayer', () => {
+    console.log('hitting new player event on client side');
+  });
 
   console.log('party state -> ', state);
 

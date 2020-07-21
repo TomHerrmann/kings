@@ -43,6 +43,8 @@ io.on('connection', (socket) => {
 
   socket.on('joinParty', async (partyCode) => {
     socket.join(partyCode);
+
+    socket.to(partyCode).emit('newPlayer');
   });
 
   socket.on('disconnect', () => {
