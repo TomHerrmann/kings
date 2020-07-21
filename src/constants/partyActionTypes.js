@@ -1,4 +1,4 @@
-export const SLIDE_SELECT = 'SLIDE_SELECT';
+export const CAROUSEL_CLOSE = 'CAROUSEL_CLOSE';
 export const PARTY_CREATE = 'PARTY_CREATE';
 export const PARTY_JOIN = 'PARTY_JOIN';
-export const USER_ADD = 'USER_ADD';
+export const SLIDE_SELECT = 'SLIDE_SELECT';

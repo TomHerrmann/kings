@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { userAdd } from '../../actions/partyActions';
+import { userAdd } from '../../actions/gameActions';
 import {
   partySocketCreate,
   partySocketJoin,

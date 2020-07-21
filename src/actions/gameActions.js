@@ -6,6 +6,7 @@ import {
   GAME_LOADING,
   GAME_NEW,
   GAME_RULE_CREATE,
+  USER_ADD,
 } from '../constants/gameActionTypes';
 
 export const cardsGet = (deckId) => ({
@@ -41,4 +42,10 @@ export const gameNew = () => ({
 export const gameRuleCreate = () => ({
   type: GAME_RULE_CREATE,
   payload: null,
+});
+
+export const userAdd = (socket, nickname) => ({
+  // ignore the socket
+  type: USER_ADD,
+  payload: nickname,
 });

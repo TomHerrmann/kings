@@ -6,15 +6,19 @@ import {
   GAME_LOADING,
   GAME_NEW,
   GAME_RULE_CREATE,
+  USER_ADD,
 } from '../constants/gameActionTypes';
 
 const initialState = {
+  carouselOpen: true,
   cardsRemaining: 52,
   currentCard: null,
   deckId: null,
   displayGif: null,
   gifStore: {},
   isLoading: true,
+  playerName: '',
+  players: [],
   pulledCards: [],
 };
 
@@ -73,6 +77,17 @@ const gameReducer = (state = initialState, action) => {
     case GAME_RULE_CREATE: {
       return {
         ...state,
+      };
+    }
+    case USER_ADD: {
+      const nickname = action.payload;
+      const players = state.players.slice();
+      players.push(nickname);
+
+      return {
+        ...state,
+        carouselOpen: false,
+        players,
       };
     }
     default:
