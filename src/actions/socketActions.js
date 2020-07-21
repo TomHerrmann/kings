@@ -18,10 +18,11 @@ export const partySocketCreate = (socket, partyName) => {
   };
 };
 
-export const partySocketJoin = (socket, partyId) => ({
-  type: PARTY_SOCKET_JOIN,
-  payload: { socket, partyId },
-});
+export const partySocketJoin = (socket, partyCode) => {
+  return (dispatch) => {
+    socket.emit('joinParty', partyCode);
+  };
+};
 
 // boilerplate redux actions
 export const socketCreate = (socket) => ({

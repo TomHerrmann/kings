@@ -6,9 +6,11 @@ import {
   partySocketJoin,
 } from '../../actions/socketActions';
 
-const FormSlide = ({ carouselEl, carouselStatus }) => {
+const FormSlide = ({ carouselEl, slideStatus }) => {
   const dispatch = useDispatch();
-  const { socket } = useSelector((state) => ({ ...state.socketReducer }));
+  const { socket } = useSelector((state) => ({
+    ...state.socketReducer,
+  }));
 
   const [formErrorMessage, setFormErrorMessage] = useState('');
   const [formInput, setFormInput] = useState('');
@@ -17,7 +19,7 @@ const FormSlide = ({ carouselEl, carouselStatus }) => {
   const [actionCreator, setActionCreator] = useState(null);
 
   useEffect(() => {
-    switch (carouselStatus) {
+    switch (slideStatus) {
       case 'create': {
         setFormErrorMessage('party names must be at least 3 letters');
         setFormLabel('new party name');
@@ -47,7 +49,7 @@ const FormSlide = ({ carouselEl, carouselStatus }) => {
         return;
       }
     }
-  }, [carouselStatus]);
+  }, [slideStatus]);
 
   const onFormSubmit = (e) => {
     e.preventDefault();

@@ -8,7 +8,7 @@ import FormSlide from './slides/FormSlide.jsx';
 import WelcomeSlide from './slides/WelcomeSlide.jsx';
 
 const Carousel = () => {
-  const { carouselStatus } = useSelector((state) => state.gameReducer);
+  const { slideStatus } = useSelector((state) => state.partyReducer);
   const carouselEl = useRef();
 
   const sliderSettings = {
@@ -23,8 +23,8 @@ const Carousel = () => {
   return (
     <Slider ref={carouselEl} {...sliderSettings}>
       <WelcomeSlide carouselEl={carouselEl} />
-      <FormSlide carouselEl={carouselEl} carouselStatus={carouselStatus} />
-      <FormSlide carouselEl={carouselEl} carouselStatus="nickname" />
+      <FormSlide carouselEl={carouselEl} slideStatus={slideStatus} />
+      <FormSlide carouselEl={carouselEl} slideStatus="nickname" />
     </Slider>
   );
 };

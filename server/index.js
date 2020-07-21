@@ -41,6 +41,10 @@ io.on('connection', (socket) => {
     io.in(partyCode).emit('partyCreated', { partyCode, partyName });
   });
 
+  socket.on('joinParty', async (partyCode) => {
+    socket.join(partyCode);
+  });
+
   socket.on('disconnect', () => {
     players--;
     console.log('A player disconnected - players:', players);
