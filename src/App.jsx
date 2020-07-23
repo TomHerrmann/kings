@@ -39,6 +39,7 @@ const App = () => {
   const { carouselOpen, isLoading } = state;
 
   socket.on('partyCreated', (partyData) => {
+    fetchDeck();
     dispatch(partyCreate(partyData));
   });
   socket.on('newPlayer', () => {
@@ -48,7 +49,6 @@ const App = () => {
   console.log('party state -> ', state);
 
   useEffect(() => {
-    fetchDeck();
     dispatch(socketCreate(socket));
   }, []);
 
