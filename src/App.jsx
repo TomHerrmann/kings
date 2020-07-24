@@ -42,7 +42,7 @@ const App = () => {
     dispatch(partyCreate(partyData));
   });
   socket.on('newPlayer', () => {
-    emitRoomState();
+    socket.emit('emitState', { carouselOpen, isLoading, partyCode });
   });
 
   console.log('party code ->', partyCode);

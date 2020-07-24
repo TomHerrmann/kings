@@ -4,7 +4,10 @@ import {
   SLIDE_SELECT,
 } from '../constants/partyActionTypes';
 
+import { USER_ADD } from '../constants/gameActionTypes';
+
 const initialState = {
+  carouselOpen: true,
   partyCode: null,
   partyName: '',
   slideStatus: 'create',
@@ -33,6 +36,12 @@ const partyReducer = (state = initialState, action) => {
       return {
         ...state,
         slideStatus,
+      };
+    }
+    case USER_ADD: {
+      return {
+        ...state,
+        carouselOpen: false,
       };
     }
     default:

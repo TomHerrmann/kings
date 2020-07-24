@@ -10,7 +10,6 @@ import {
 } from '../constants/gameActionTypes';
 
 const initialState = {
-  carouselOpen: true,
   cardsRemaining: 52,
   currentCard: null,
   deckId: null,
@@ -86,7 +85,6 @@ const gameReducer = (state = initialState, action) => {
 
       return {
         ...state,
-        carouselOpen: false,
         players,
       };
     }
