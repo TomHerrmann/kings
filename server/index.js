@@ -47,6 +47,10 @@ io.on('connection', (socket) => {
     socket.to(partyCode).emit('newPlayer');
   });
 
+  socket.on('emitState', (state) => {
+    console.log('emitting state ->', state);
+  });
+
   socket.on('disconnect', () => {
     players--;
     console.log('A player disconnected - players:', players);

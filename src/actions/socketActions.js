@@ -1,17 +1,12 @@
-import { uniqueId } from 'lodash';
-
-import {
-  PARTY_SOCKET_CREATE,
-  PARTY_SOCKET_JOIN,
-  SOCKET_CREATE,
-} from '../constants/socketActionTypes';
+import { SOCKET_CREATE } from '../constants/socketActionTypes';
 
 // async action items using ~ sockets
 export const partySocketCreate = (socket, partyName) => {
   return (dispatch) => {
     const partyCode = Math.random()
       .toString(36)
-      .substr(2, 4);
+      .substr(2, 4)
+      .toUpperCase();
     const newPartyData = { partyCode, partyName };
 
     socket.emit('createParty', newPartyData);

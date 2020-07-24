@@ -31,22 +31,21 @@ const socket = io();
 
 const App = () => {
   const dispatch = useDispatch();
-  const state = useSelector((state) => ({
+  const { carouselOpen, isLoading, partyCode } = useSelector((state) => ({
     ...state.gameReducer,
     ...state.partyReducer,
     ...state.socketReducer,
   }));
-  const { carouselOpen, isLoading } = state;
 
   socket.on('partyCreated', (partyData) => {
     fetchDeck();
     dispatch(partyCreate(partyData));
   });
   socket.on('newPlayer', () => {
-    console.log('hitting new player event on client side');
+    emitRoomState();
   });
 
-  console.log('party state -> ', state);
+  console.log('party code ->', partyCode);
 
   useEffect(() => {
     dispatch(socketCreate(socket));
